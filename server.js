@@ -79,14 +79,15 @@ router.route('/users/:user_id')
                 res.json({ message: 'No user found with given user id.' });
             }
             else {
-                // Just updates the username, add other things need to be updated here
-                user.username = req.body.username;
+                for (var key in req.body) {
+                    user[key] = req.body[key];
+                }
                 user.save( function (err){
                     if (err) {
                         console.log('Error occurred updating user: ', err);
                         res.send(err);
                     }
-                    res.json({ message: 'User Name Updated!' });
+                    res.json({ message: 'User Updated!' });
                 });
             }
 
